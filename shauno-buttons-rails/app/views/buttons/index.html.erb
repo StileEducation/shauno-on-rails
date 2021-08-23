@@ -1,0 +1,9 @@
+<h1>All Buttons</h1>
+
+<ul>
+<% @buttons.each do |button| %>
+    <li>
+        <%= link_to button.id, button %>
+    </li>
+<% end %>
+</ul>
