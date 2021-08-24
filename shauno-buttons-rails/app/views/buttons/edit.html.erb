@@ -1,11 +1,8 @@
-<h1>New Button</h1>
+<h1>Edit Button</h1>
+
+<%# <%= render "form", button: @button, reasons: @reasons, reason: @reason, developers: @developers, developer: @developer %> 
 
 <%= form_with model: @button do |form| %>
-    <div>
-        <%= form.label :uuid %><br>
-        <%= form.text_field :uuid %>
-    </div>
-
     <div>
         <%= form.label :is_active, "Button is inactive" %>: 
         <%= form.check_box :is_active, { checked: false }, false, true %>
