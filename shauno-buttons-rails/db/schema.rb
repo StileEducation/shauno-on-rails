@@ -10,11 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_064259) do
+ActiveRecord::Schema.define(version: 2021_08_24_002730) do
+
+  create_table "button_reasons", force: :cascade do |t|
+    t.integer "button_id", null: false
+    t.integer "reason_id", null: false
+    t.boolean "current", default: true
+    t.index ["button_id"], name: "index_button_reasons_on_button_id"
+    t.index ["reason_id"], name: "index_button_reasons_on_reason_id"
+  end
 
   create_table "buttons", force: :cascade do |t|
     t.string "uuid"
     t.boolean "is_active", default: true
   end
 
+  create_table "reasons", force: :cascade do |t|
+    t.string "reason"
+  end
+
+  add_foreign_key "button_reasons", "buttons"
+  add_foreign_key "button_reasons", "reasons"
 end

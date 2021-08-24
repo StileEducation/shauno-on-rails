@@ -1,0 +1,4 @@
+class Reason < ApplicationRecord
+    has_many :button_reason
+    has_many :button, through: :button_reason
+end

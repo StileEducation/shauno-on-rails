@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  button: one
+  reason: one
+  current: false
+
+two:
+  button: two
+  reason: two
+  current: false
