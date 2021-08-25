@@ -13,6 +13,7 @@ class ButtonsController < ApplicationController
         @button = Button.new
 
         reasons = Reason.all
+        pp reasons
         @reasons = []
         reasons.each do |reason|
             @reasons.push(reason.reason)
@@ -23,6 +24,7 @@ class ButtonsController < ApplicationController
         developers.each do |developer|
             @developers.push(developer.name)
         end
+        pp @reasons
     end
 
     def create
@@ -41,7 +43,9 @@ class ButtonsController < ApplicationController
 
             redirect_to @button
         else
-            render :new
+            redirect_to(@button)
+            new
+            #render :new
         end
     end
 

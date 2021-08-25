@@ -1,5 +1,9 @@
 <h1>New Button</h1>
 
+<% pp @reasons %>
+<% pp "errors incoming" %>
+<% pp @button.errors %>
+
 <%= form_with model: @button do |form| %>
     <div>
         <%= form.label :uuid %><br>
@@ -14,6 +18,14 @@
     <div>
         <%= form.label :reason %><br>
         <%= form.select :reason, @reasons %>
+        <% if @button.errors.any? %>
+            <p> There is supposed to be an error here </p>
+            <div>
+                <% @button.errors.full_messages_for(:reason).each do |error| %>
+                    <div> <%= error %> </div>
+                <% end %>
+            </div>
+        <% end %>
     </div>
 
     <div>
@@ -24,4 +36,5 @@
     <div>
         <%= form.submit %>
     </div>
+
 <% end %>
