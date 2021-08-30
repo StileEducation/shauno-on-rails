@@ -12,17 +12,7 @@ class ButtonsController < ApplicationController
     def new
         @button = Button.new
 
-        reasons = Reason.all
-        @reasons = []
-        reasons.each do |reason|
-            @reasons.push(reason.reason)
-        end
-
-        developers = Developer.all
-        @developers = []
-        developers.each do |developer|
-            @developers.push(developer.name)
-        end
+        create_instance_variables
     end
 
     def create
@@ -41,17 +31,7 @@ class ButtonsController < ApplicationController
 
             redirect_to @button
         else
-            reasons = Reason.all
-            @reasons = []
-            reasons.each do |reason|
-                @reasons.push(reason.reason)
-            end
-
-            developers = Developer.all
-            @developers = []
-            developers.each do |developer|
-                @developers.push(developer.name)
-            end
+            create_instance_variables
 
             render :new
         end
@@ -62,17 +42,7 @@ class ButtonsController < ApplicationController
         @reason = @button.reason.where(button_reasons: { current: true }).first
         @developer = @button.developer.where(button_developers: { current: true }).first
 
-        reasons = Reason.all
-        @reasons = []
-        reasons.each do |reason|
-            @reasons.push(reason.reason)
-        end
-
-        developers = Developer.all
-        @developers = []
-        developers.each do |developer|
-            @developers.push(developer.name)
-        end
+        create_instance_variables
     end
 
     def update
@@ -100,18 +70,7 @@ class ButtonsController < ApplicationController
 
             redirect_to @button
         else
-            reasons = Reason.all
-            @reasons = []
-            reasons.each do |reason|
-                @reasons.push(reason.reason)
-            end
-
-            developers = Developer.all
-            @developers = []
-            developers.each do |developer|
-                @developers.push(developer.name)
-            end
-
+            create_instance_variables
             @reason = @button.reason.where(button_reasons: { current: true }).first
             @developer = @button.developer.where(button_developers: { current: true }).first
 
@@ -122,5 +81,19 @@ class ButtonsController < ApplicationController
     private
     def button_params
         params.require(:button).permit(:uuid, :is_active)
+    end
+
+    def create_instance_variables
+        reasons = Reason.all
+        @reasons = []
+        reasons.each do |reason|
+            @reasons.push(reason.reason)
+        end
+
+        developers = Developer.all
+        @developers = []
+        developers.each do |developer|
+            @developers.push(developer.name)
+        end
     end
 end
