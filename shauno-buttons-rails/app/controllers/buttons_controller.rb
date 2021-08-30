@@ -43,9 +43,9 @@ class ButtonsController < ApplicationController
 
             redirect_to @button
         else
-            redirect_to(@button)
-            new
-            #render :new
+            # redirect_to(@button)
+            # new
+            render :new
         end
     end
 

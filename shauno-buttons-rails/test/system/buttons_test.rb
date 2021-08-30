@@ -28,7 +28,7 @@ class ButtonsTest < ApplicationSystemTestCase
 
   test "editing buttons" do
     visit buttons_url
-    click_on "5"
+    click_on "5" #put in sth into test db
     click_on "Edit"
 
     select("Developer sad", from: "Reason")
