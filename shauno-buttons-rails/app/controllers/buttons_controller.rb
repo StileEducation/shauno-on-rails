@@ -82,19 +82,20 @@ class ButtonsController < ApplicationController
             puts "updated button"
             if @button.reason.where(button_reasons: { current: true }).first.reason != params["button"]["reason"] #if reason thats been given is not the one alr assigned to it
                 puts "updating reason"
-                ButtonReason.find_by(button_id: @button.id).update(current: false)  
+                ButtonReason.where(button_id: @button.id).update(current: false)
             
-                @button.reason = Reason.find_by(reason: params["button"]["reason"])
-                @button.save
+                new_reason_id = Reason.find_by(reason: params["button"]["reason"]).id
+                reason = ButtonReason.new(button_id: @button.id, reason_id: new_reason_id)
+                reason.save
             end
 
             if @button.developer.where(button_developers: { current: true }).first.name != params["button"]["developer"]
                 puts "updating developer"
-                ButtonDeveloper.find_by(button_id: @button.id).update(current: false) 
+                ButtonDeveloper.where(button_id: @button.id).update(current: false) 
 
                 new_developer_id = Developer.find_by(name: params["button"]["developer"]).id
-                join2 = ButtonDeveloper.new(button_id: @button.id, developer_id: new_developer_id)
-                join2.save
+                developer = ButtonDeveloper.new(button_id: @button.id, developer_id: new_developer_id)
+                developer.save
             end
 
             redirect_to @button
@@ -111,7 +112,10 @@ class ButtonsController < ApplicationController
                 @developers.push(developer.name)
             end
 
-            render :new
+            @reason = @button.reason.where(button_reasons: { current: true }).first
+            @developer = @button.developer.where(button_developers: { current: true }).first
+
+            render :edit
         end
     end
 
