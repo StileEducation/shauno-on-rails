@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_005737) do
+ActiveRecord::Schema.define(version: 2021_08_30_045721) do
 
   create_table "button_developers", force: :cascade do |t|
     t.integer "button_id", null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2021_08_24_005737) do
   create_table "buttons", force: :cascade do |t|
     t.string "uuid"
     t.boolean "is_active", default: true
+    t.index ["uuid"], name: "index_buttons_on_uuid", unique: true
   end
 
   create_table "developers", force: :cascade do |t|
