@@ -13,7 +13,6 @@ class ButtonsController < ApplicationController
         @button = Button.new
 
         reasons = Reason.all
-        pp reasons
         @reasons = []
         reasons.each do |reason|
             @reasons.push(reason.reason)
@@ -24,7 +23,6 @@ class ButtonsController < ApplicationController
         developers.each do |developer|
             @developers.push(developer.name)
         end
-        pp @reasons
     end
 
     def create
@@ -43,8 +41,18 @@ class ButtonsController < ApplicationController
 
             redirect_to @button
         else
-            # redirect_to(@button)
-            # new
+            reasons = Reason.all
+            @reasons = []
+            reasons.each do |reason|
+                @reasons.push(reason.reason)
+            end
+
+            developers = Developer.all
+            @developers = []
+            developers.each do |developer|
+                @developers.push(developer.name)
+            end
+
             render :new
         end
     end
@@ -76,9 +84,6 @@ class ButtonsController < ApplicationController
                 puts "updating reason"
                 ButtonReason.find_by(button_id: @button.id).update(current: false)  
             
-                # new_reason_id = Reason.find_by(reason: params["button"]["reason"]).id
-                # join1 = ButtonReason.new(button_id: @button.id, reason_id: new_reason_id)
-                # join1.save
                 @button.reason = Reason.find_by(reason: params["button"]["reason"])
                 @button.save
             end
@@ -94,6 +99,18 @@ class ButtonsController < ApplicationController
 
             redirect_to @button
         else
+            reasons = Reason.all
+            @reasons = []
+            reasons.each do |reason|
+                @reasons.push(reason.reason)
+            end
+
+            developers = Developer.all
+            @developers = []
+            developers.each do |developer|
+                @developers.push(developer.name)
+            end
+
             render :new
         end
     end
