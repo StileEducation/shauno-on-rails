@@ -18,21 +18,27 @@ class ButtonsController < ApplicationController
     def create
         @button = Button.new(button_params)
         
-        if @button.save
-            # need to set up the associations before redirecting
+        begin
+            if @button.save
+                # need to set up the associations before redirecting
 
-            new_reason_id = Reason.find_by(reason: params["button"]["reason"]).id
-            join1 = ButtonReason.new(button_id: @button.id, reason_id: new_reason_id)
-            join1.save
+                new_reason_id = Reason.find_by(reason: params["button"]["reason"]).id
+                join1 = ButtonReason.new(button_id: @button.id, reason_id: new_reason_id)
+                join1.save
 
-            new_developer_id = Developer.find_by(name: params["button"]["developer"]).id
-            join2 = ButtonDeveloper.new(button_id: @button.id, developer_id: new_developer_id)
-            join2.save
+                new_developer_id = Developer.find_by(name: params["button"]["developer"]).id
+                join2 = ButtonDeveloper.new(button_id: @button.id, developer_id: new_developer_id)
+                join2.save
 
-            redirect_to @button
-        else
+                redirect_to @button
+            else
+                create_instance_variables
+                render :new
+            end
+        rescue ActiveRecord::RecordNotUnique
+            @button.errors[:uuid] << "already exists!"
+
             create_instance_variables
-
             render :new
         end
     end
@@ -49,9 +55,7 @@ class ButtonsController < ApplicationController
         @button = Button.find(params[:id])
         
         if @button.update(button_params)
-            puts "updated button"
             if @button.reason.where(button_reasons: { current: true }).first.reason != params["button"]["reason"] #if reason thats been given is not the one alr assigned to it
-                puts "updating reason"
                 ButtonReason.where(button_id: @button.id).update(current: false)
             
                 new_reason_id = Reason.find_by(reason: params["button"]["reason"]).id
@@ -60,7 +64,6 @@ class ButtonsController < ApplicationController
             end
 
             if @button.developer.where(button_developers: { current: true }).first.name != params["button"]["developer"]
-                puts "updating developer"
                 ButtonDeveloper.where(button_id: @button.id).update(current: false) 
 
                 new_developer_id = Developer.find_by(name: params["button"]["developer"]).id

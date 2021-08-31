@@ -3,9 +3,9 @@
 one:
   button: one
   developer: one
-  current: false
+  current: true
 
 two:
   button: two
   developer: two
-  current: false
+  current: true

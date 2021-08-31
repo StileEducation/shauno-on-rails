@@ -24,11 +24,15 @@ class ButtonsTest < ApplicationSystemTestCase
     visit buttons_url
     click_on "New Button"
     click_on "Create Button"
+    assert_text "Uuid can't be blank"
   end
 
-  test "editing buttons" do
+  test "editing buttons successfully" do
     visit buttons_url
-    click_on "5" #put in sth into test db
+
+    assert find_link("this-is-uuid")
+
+    click_on "this-is-uuid" 
     click_on "Edit"
 
     select("Developer sad", from: "Reason")

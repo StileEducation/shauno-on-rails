@@ -17,4 +17,11 @@ class ButtonTest < ActiveSupport::TestCase
 
     assert_raises(ActiveRecord::RecordNotUnique) { button.save }
   end
+
+  test "successfully edits whether button is active or not" do 
+    button = Button.find_by(uuid: "this-is-uuid")
+    button.update(is_active: false)
+
+    assert button.save, "button is now inactive"
+  end
 end

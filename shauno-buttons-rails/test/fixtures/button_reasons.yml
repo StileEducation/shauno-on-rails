@@ -3,9 +3,9 @@
 one:
   button: one
   reason: one
-  current: false
+  current: true
 
 two:
   button: two
   reason: two
-  current: false
+  current: true
