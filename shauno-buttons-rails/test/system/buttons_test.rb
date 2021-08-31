@@ -27,7 +27,7 @@ class ButtonsTest < ApplicationSystemTestCase
     assert_text "Uuid can't be blank"
   end
 
-  test "editing buttons successfully" do
+  test "editing the reason associated with button successfully" do
     visit buttons_url
 
     assert find_link("this-is-uuid")
@@ -40,4 +40,27 @@ class ButtonsTest < ApplicationSystemTestCase
 
     assert_text "Developer sad"
   end
+
+  test "editing the developer associated with button successfully" do
+    visit buttons_url
+    click_on "this-is-uuid" 
+    click_on "Edit"
+
+    select("Ikram Saedi", from: "Developer")
+    click_on "Update Button"
+
+    assert_text "Ikram Saedi"
+  end
+
+  test "editing button to be inactive is successful" do
+    visit buttons_url
+    click_on "this-is-uuid" 
+    click_on "Edit"
+
+    find("#button_is_active").check #this checkbox is actually labeled "Button is inactive:" for readability, which is why it appears to be the opposite of what it should
+
+    click_on "Update Button"
+    assert_text "Is active: false"
+  end
+
 end
