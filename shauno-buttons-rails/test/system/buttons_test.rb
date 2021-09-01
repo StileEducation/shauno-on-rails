@@ -27,6 +27,16 @@ class ButtonsTest < ApplicationSystemTestCase
     assert_text "Uuid can't be blank"
   end
 
+  test "create button with existing uuid doesnt work" do
+    visit buttons_url
+    click_on "New Button"
+
+    fill_in "Uuid", with: "definitely-uuid"
+
+    click_on "Create Button"
+    assert_text "Uuid already exists!"
+  end
+
   test "editing the reason associated with button successfully" do
     visit buttons_url
 
