@@ -1,10 +1,24 @@
 <h1>All Buttons</h1>
 
+<h3>Active buttons</h3>
 <ul>
 <% @buttons.each do |button| %>
-    <li>
-        <%= link_to button.uuid, button %>
-    </li>
+    <% if button.is_active %>
+        <li>
+            <%= link_to button.uuid, button %>
+        </li>
+    <% end %>
+<% end %>
+</ul>
+
+<h3>Inactive buttons</h3>
+<ul>
+<% @buttons.each do |button| %>
+    <% if !button.is_active %>
+        <li>
+            <%= link_to button.uuid, button %>
+        </li>
+    <% end %>
 <% end %>
 </ul>
 
