@@ -5,7 +5,7 @@
 <%= form_with model: @button do |form| %>
     <div>
         <%= form.label :is_active, "Button is inactive" %>: 
-        <%= form.check_box :is_active, { checked: false }, false, true %>
+        <%= form.check_box :is_active, { checked: !@button.is_active }, false, true %>
     </div>
 
     <div>
