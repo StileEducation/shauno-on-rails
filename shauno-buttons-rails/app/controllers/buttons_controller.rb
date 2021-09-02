@@ -36,7 +36,7 @@ class ButtonsController < ApplicationController
                 render :new
             end
         rescue ActiveRecord::RecordNotUnique
-            @button.errors[:uuid] << "already exists!"
+            @button.errors.add(:uuid, message: "already exists!")
 
             create_instance_variables
             render :new

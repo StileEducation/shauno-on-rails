@@ -1,0 +1,13 @@
+<h1>All Events</h1>
+
+<ul>
+<% @events.each do |event| %>
+    <% if !event.to_ignore %>
+        <li>
+            <%= link_to "#{event.button_id}, #{event.timestamp}", event %>
+        </li>
+    <% end %>
+<% end %>
+</ul>
+
+<%= link_to "Add Event", new_event_path %>

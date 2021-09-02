@@ -3,12 +3,12 @@ require "test_helper"
 class ButtonTest < ActiveSupport::TestCase
   test "should not save button without uuid" do
     button = Button.new
-    assert_not button.save, "save the button without a uuid"
+    assert_not button.save, "Saved the button without a uuid"
   end
 
   test "should save button with uuid" do
     button = Button.new(uuid: "totally-uuid")
-    assert button.save, "button with uuid is saved"
+    assert button.save, "Did not save button with uuid provided"
   end
 
   test "should not save button with a uuid that already exists in the database" do
@@ -22,6 +22,6 @@ class ButtonTest < ActiveSupport::TestCase
     button = Button.find_by(uuid: "this-is-uuid")
     button.update(is_active: false)
 
-    assert button.save, "button is now inactive"
+    assert button.save, "Button was not marked as inactive"
   end
 end

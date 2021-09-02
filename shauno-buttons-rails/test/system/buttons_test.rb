@@ -18,6 +18,8 @@ class ButtonsTest < ApplicationSystemTestCase
     
     click_on "Create Button"
     assert_text "legitimate-uuid"
+    assert_text "CI broken"
+    assert_text "Ikram Saedi"
   end
 
   test "create button with no uuid doesnt work" do

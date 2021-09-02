@@ -39,14 +39,14 @@ ActiveRecord::Schema.define(version: 2021_09_01_002318) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer "button_id_id", null: false
+    t.integer "button_id", null: false
     t.datetime "timestamp", null: false
-    t.integer "reason_id_id", null: false
-    t.integer "developer_id_id", null: false
+    t.integer "reason_id", null: false
+    t.integer "developer_id", null: false
     t.boolean "to_ignore", default: false
-    t.index ["button_id_id"], name: "index_events_on_button_id_id"
-    t.index ["developer_id_id"], name: "index_events_on_developer_id_id"
-    t.index ["reason_id_id"], name: "index_events_on_reason_id_id"
+    t.index ["button_id"], name: "index_events_on_button_id"
+    t.index ["developer_id"], name: "index_events_on_developer_id"
+    t.index ["reason_id"], name: "index_events_on_reason_id"
   end
 
   create_table "reasons", force: :cascade do |t|
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2021_09_01_002318) do
   add_foreign_key "button_developers", "developers"
   add_foreign_key "button_reasons", "buttons"
   add_foreign_key "button_reasons", "reasons"
-  add_foreign_key "events", "button_ids"
-  add_foreign_key "events", "developer_ids"
-  add_foreign_key "events", "reason_ids"
+  add_foreign_key "events", "buttons"
+  add_foreign_key "events", "developers"
+  add_foreign_key "events", "reasons"
 end
