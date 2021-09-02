@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
-  belongs_to :button_id
-  belongs_to :reason_id
-  belongs_to :developer_id
+  belongs_to :button
+  belongs_to :reason
+  belongs_to :developer
 
   validates :button_id, presence: true
   validates :timestamp, presence: true
