@@ -1,0 +1,17 @@
+<h1>New Reason</h1>
+
+<%= form_with model: @reason do |form| %>
+    <div>
+        <%= form.label :reason %>
+        <%= form.text_field :reason %>
+        <% if @reason.errors.any? %>
+            <% @reason.errors.full_messages_for(:reason).each do |error| %>
+                <div> <%= error %> </div>
+            <% end %>
+        <% end %>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>

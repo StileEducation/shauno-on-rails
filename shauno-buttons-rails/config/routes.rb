@@ -3,5 +3,7 @@ Rails.application.routes.draw do
 
   resources :buttons, except: [:destroy]
 
+  resources :reasons, except: [:edit, :update, :destroy]
+
   resources :events, except: [:destroy]
 end

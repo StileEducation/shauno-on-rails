@@ -1,0 +1,11 @@
+<h1>All Reasons</h1>
+
+<ul>
+    <% @reasons.each do |reason| %>
+        <li>
+            <%= link_to reason.reason, reason %>
+        </li>
+    <% end %>
+</ul>
+
+<%= link_to "New Reason", new_reason_path %>
