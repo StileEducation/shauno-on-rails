@@ -41,6 +41,20 @@ class EventsController < ApplicationController
         end
     end
 
+    def edit
+        update
+    end
+
+    def update
+        @event = Event.find(params["id"])
+
+        @event.update(to_ignore: true)
+
+        @event.save
+
+        redirect_to events_path
+    end
+
     private
     def event_params
         params.require(:event).permit(:button_id, :timestamp, :reason_id, :developer_id)

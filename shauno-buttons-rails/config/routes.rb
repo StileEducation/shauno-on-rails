@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: "main#index"
 
-  resources :buttons
+  resources :buttons, except: [:destroy]
 
-  resources :events
+  resources :events, except: [:destroy]
 end

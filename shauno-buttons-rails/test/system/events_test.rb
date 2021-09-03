@@ -28,4 +28,19 @@ class EventsTest < ApplicationSystemTestCase
     assert_text "Dev McKenzie"
   end
 
+  test "can invalidate an existing event" do
+    visit events_url
+
+    event = Event.all.first
+
+    link = find_link("Show", {href: "/events/#{event.id}"})
+    link.click
+
+    accept_alert do
+      click_on "Ignore this event"
+    end
+
+    assert_no_text event.timestamp
+  end
+
 end

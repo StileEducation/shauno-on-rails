@@ -56,4 +56,12 @@ class EventTest < ActiveSupport::TestCase
     event = Event.new(button_id: 1, reason_id: 1, developer_id: 1)
     assert_not event.save, "did save event without timestamp"
   end
+
+  test "event can be invalidated" do
+    event = Event.find_by(timestamp: "2021-08-10 01:05:20")
+
+    event.update(to_ignore: true)
+
+    assert event.save, "event was not marked as ignored"
+  end
 end
