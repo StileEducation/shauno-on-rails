@@ -5,8 +5,8 @@ class ButtonsController < ApplicationController
 
     def show
         @button = Button.find(params[:id])
-        @reason = @button.reason.where(button_reasons: { current: true }).first
-        @developer = @button.developer.where(button_developers: { current: true }).first
+        @reason = @button.current_reason
+        @developer = @button.current_developer
     end
 
     def new
@@ -45,8 +45,8 @@ class ButtonsController < ApplicationController
 
     def edit
         @button = Button.find(params[:id])
-        @reason = @button.reason.where(button_reasons: { current: true }).first
-        @developer = @button.developer.where(button_developers: { current: true }).first
+        @reason = @button.current_reason
+        @developer = @button.current_developer
 
         create_instance_variables
     end
@@ -55,7 +55,7 @@ class ButtonsController < ApplicationController
         @button = Button.find(params[:id])
         
         if @button.update(button_params)
-            if @button.reason.where(button_reasons: { current: true }).first.reason != params["button"]["reason"] #if reason thats been given is not the one alr assigned to it
+            if @button.current_reason.reason != params["button"]["reason"] #if reason thats been given is not the one alr assigned to it
                 ButtonReason.where(button_id: @button.id).update(current: false)
             
                 new_reason_id = Reason.find_by(reason: params["button"]["reason"]).id
@@ -63,7 +63,7 @@ class ButtonsController < ApplicationController
                 reason.save
             end
 
-            if @button.developer.where(button_developers: { current: true }).first.name != params["button"]["developer"]
+            if @button.current_developer.name != params["button"]["developer"]
                 ButtonDeveloper.where(button_id: @button.id).update(current: false) 
 
                 new_developer_id = Developer.find_by(name: params["button"]["developer"]).id
@@ -74,8 +74,8 @@ class ButtonsController < ApplicationController
             redirect_to @button
         else
             create_instance_variables
-            @reason = @button.reason.where(button_reasons: { current: true }).first
-            @developer = @button.developer.where(button_developers: { current: true }).first
+            @reason = @button.current_reason
+            @developer = @button.current_developer
 
             render :edit
         end

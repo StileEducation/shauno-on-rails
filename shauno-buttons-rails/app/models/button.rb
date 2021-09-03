@@ -8,4 +8,12 @@ class Button < ApplicationRecord
     has_many :event
 
     validates :uuid, presence: true
+
+    def current_reason
+        self.reason.where(button_reasons: { current: true }).first
+    end
+
+    def current_developer
+        self.developer.where(button_developers: { current: true }).first
+    end
 end

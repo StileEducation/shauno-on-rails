@@ -25,8 +25,8 @@ class EventsController < ApplicationController
         button = Button.find_by(uuid: params["event"]["uuid"])
         # byebug
         button_id = button.id
-        reason_id = button.reason.where(button_reasons: { current: true }).first.id
-        developer_id = button.developer.where(button_developers: { current: true }).first.id
+        reason_id = button.current_reason.id
+        developer_id = button.current_developer.id
 
         params["event"]["button_id"] = button_id
         params["event"]["reason_id"] = reason_id
