@@ -1,0 +1,19 @@
+<h1>New Event</h1>
+
+<%= form_with model: @event do |form| %>
+    
+    <div>
+        <%= form.label :uuid, "UUID of Button" %><br>
+        <%= form.select :uuid, @buttons %>
+    </div>
+
+    <div>
+        <%= form.label :timestamp, "Timestamp" %><br>
+        <%= form.datetime_select :timestamp, include_seconds: true, date_separator: "-", time_separator: ":", datetime_separator: " ", use_month_numbers: true %>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+
+<% end %>

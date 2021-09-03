@@ -1,13 +1,20 @@
 <h1>All Events</h1>
 
-<ul>
+<table>
+<tr>
+    <th>Button</th>
+    <th>Timestamp</th>
+    <th>Link</th>
+</tr>
 <% @events.each do |event| %>
     <% if !event.to_ignore %>
-        <li>
-            <%= link_to "#{event.button_id}, #{event.timestamp}", event %>
-        </li>
+        <tr>
+            <td><%= Button.find(event.button_id).uuid %></td>
+            <td><%= event.timestamp %></td>
+            <td><%= link_to "Show", event %></td>
+        </tr>
     <% end %>
 <% end %>
-</ul>
+</table>
 
-<%= link_to "Add Event", new_event_path %>
+<%= link_to "New Event", new_event_path %>

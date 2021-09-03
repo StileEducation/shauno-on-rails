@@ -7,6 +7,12 @@ class ButtonsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Buttons"
   end
 
+  test "index shows all buttons" do
+    visit buttons_url
+    assert_text "definitely-uuid"
+    assert_text "this-is-uuid"
+  end
+
   test "creating button works" do
     visit buttons_url
 
