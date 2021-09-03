@@ -1,0 +1,11 @@
+<h1> Developers </h1>
+
+<ul>
+    <% @developers.each do |developer| %>
+        <li>
+            <%= link_to developer.name, developer %>
+        </li>
+    <% end %>
+</ul>
+
+<%= link_to "New Developer", new_developer_path %>

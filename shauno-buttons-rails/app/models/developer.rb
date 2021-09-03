@@ -3,4 +3,6 @@ class Developer < ApplicationRecord
     has_many :button, through: :button_developer
 
     has_many :event
+
+    validates :name, presence: true
 end

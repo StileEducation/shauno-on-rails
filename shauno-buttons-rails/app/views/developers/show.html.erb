@@ -1,0 +1,16 @@
+<h1> <%= @developer.name %> </h1>
+
+<h3>Currently Associated Buttons</h3>
+<table>
+    <tr>
+        <th>Button UUID</th>
+        <th>Reason</th>
+    </tr>
+
+    <% @developer.button.where(button_developers: { current: true }).each do |button| %>
+        <tr>
+            <td><%= link_to button.uuid, button %></td>
+            <td><%= button.current_reason.reason %></td> <%# need to turn this into a link once we've made the developer page %>
+        </tr>
+    <% end %>
+</table>

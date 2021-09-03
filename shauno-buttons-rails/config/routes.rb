@@ -5,5 +5,7 @@ Rails.application.routes.draw do
 
   resources :reasons, except: [:edit, :update, :destroy]
 
+  resources :developers, except: [:edit, :update, :destroy]
+
   resources :events, except: [:destroy]
 end

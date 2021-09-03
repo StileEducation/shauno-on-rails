@@ -1,0 +1,17 @@
+<h1>New Developer</h1>
+
+<%= form_with model: @developer do |form| %>
+    <div>
+        <%= form.label :name %>
+        <%= form.text_field :name %>
+        <% if @developer.errors.any? %>
+            <% @developer.errors.full_messages_for(:name).each do |error| %>
+                <div> <%= error %> </div>
+            <% end %>
+        <% end %>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>
