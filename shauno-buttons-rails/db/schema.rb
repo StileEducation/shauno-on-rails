@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_03_054219) do
+ActiveRecord::Schema.define(version: 2021_09_06_004546) do
 
   create_table "button_developers", force: :cascade do |t|
     t.integer "button_id", null: false
@@ -54,6 +54,13 @@ ActiveRecord::Schema.define(version: 2021_09_03_054219) do
     t.index ["reason"], name: "index_reasons_on_reason", unique: true
   end
 
+  create_table "timeblocks", force: :cascade do |t|
+    t.integer "developer_id", null: false
+    t.integer "reason_id", null: false
+    t.index ["developer_id"], name: "index_timeblocks_on_developer_id"
+    t.index ["reason_id"], name: "index_timeblocks_on_reason_id"
+  end
+
   add_foreign_key "button_developers", "buttons"
   add_foreign_key "button_developers", "developers"
   add_foreign_key "button_reasons", "buttons"
@@ -61,4 +68,6 @@ ActiveRecord::Schema.define(version: 2021_09_03_054219) do
   add_foreign_key "events", "buttons"
   add_foreign_key "events", "developers"
   add_foreign_key "events", "reasons"
+  add_foreign_key "timeblocks", "developers"
+  add_foreign_key "timeblocks", "reasons"
 end
