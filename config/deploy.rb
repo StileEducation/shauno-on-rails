@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.16.0"
 
-set :application, "ubuntu"
+set :application, "shauno-on-rails"
 set :repo_url, "https://github.com/StileEducation/shauno-on-rails.git"
 
 # Deploy to the user's home directory
