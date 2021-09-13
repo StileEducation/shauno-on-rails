@@ -17,7 +17,7 @@
 
 const http = require("http");
 
-function sendRequest(authToken, serialNum) {
+function sendRequest(authToken, serialNum, cookies) {
   // need to construct the form data with the auth token and a event obj??
   let form_data = {
     authenticity_token: authToken,
@@ -32,6 +32,7 @@ function sendRequest(authToken, serialNum) {
     headers: {
       ContentType: "application/x-www-form-urlencoded",
       ContentLength: Object.keys(form_data).length,
+      Cookie: cookies
     },
   };
 
@@ -63,9 +64,12 @@ exports.handler = (event, context, callback) => {
   };
 
   let auth_token;
+  let cookies;
 
   const req1 = http.request(options1, (res) => {
     console.log(`statusCode: ${res.statusCode}`);
+
+    cookies = res.headers["set-cookie"]
 
     // res.on("data", (d) => {
     //   process.stdout.write(d); //if response sent data back it gets printed
@@ -81,15 +85,15 @@ exports.handler = (event, context, callback) => {
       process.stdout.write(d); //if response sent data back it gets printed
       const lines = d.toString().split("\n");
       for (let line of lines) {
-        if (line.includes("authenticity_token")) {
-          auth_token = line.match(/value="(.*)"/)[1];
+        if (line.includes("csrf-token")) {
+          auth_token = line.match(/content="(.*)"/)[1];
         }
       }
     });
 
     res.on("end", function () {
       console.log("auth_token: ", auth_token);
-      sendRequest(auth_token, event.serialNumber);
+      sendRequest(auth_token, event.serialNumber, cookies);
     });
   });
 
